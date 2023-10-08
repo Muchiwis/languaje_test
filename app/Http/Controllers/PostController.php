@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -12,7 +13,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $post = Post::all();
+        return view('posts.index',compact('post'));
     }
 
     /**
@@ -28,7 +30,18 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $post = new Post();
+        $post->title = $request->title;
+        $post->body = $request->body;
+        $post->image_url = $request->image_url;
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $path = Storage::putFile('public/images', $request->file('image'));
+            $nuevo_path = str_replace('public', 'storage', $path); // Cambio aquí
+            $post->image_url = $nuevo_path;
+        }
+        $post->save();
+        return redirect()->route('posts.index');
     }
 
     /**
@@ -58,8 +71,9 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Post $post)
-    {
-        //
+    public function destroy(Post $id)
+    {   
+        $id->delete();
+        return redirect()->route('posts.index');
     }
 }

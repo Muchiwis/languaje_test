@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,8 +16,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
 Route::get('/', function () {
-    return view('welcome');
+    return view('allPost',
+    ['posts' => Post::where('active', true)->get()]);
 });
 
 Route::get('/dashboard', function () {
@@ -29,3 +36,7 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::get('/posts',[PostController::class, 'index'])->name('posts.index');
+Route::post('/posts',[PostController::class, 'store'])->name('posts.store');
+Route::delete('/posts/delete/{id}',[PostController::class, 'destroy'])->name('posts.destroy');
