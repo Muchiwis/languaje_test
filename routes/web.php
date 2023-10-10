@@ -44,3 +44,6 @@ Route::get('/posts',[PostController::class, 'index'])->name('posts.index');
 Route::get('/posts/allDetails/{id}',[PostController::class, 'show'])->name('posts.blogPrincipal');
 Route::post('/posts',[PostController::class, 'store'])->name('posts.store');
 Route::delete('/posts/delete/{id}',[PostController::class, 'destroy'])->name('posts.destroy');
+//ACtualizar formulario
+Route::get('/posts/updateForm/{id}',[PostController::class, 'updateForm'])->name('posts.updateForm');
+Route::put('/posts/update/{id}',[PostController::class, 'update'])->name('posts.update');

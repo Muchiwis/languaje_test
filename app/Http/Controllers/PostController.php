@@ -66,7 +66,13 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        return "Aca de va actualziar";
+    }
+
+    public function updateForm($id)
+    {
+        $post = Post::find($id);
+        return view('posts.update',compact('post'));
     }
 
     /**
