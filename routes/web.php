@@ -38,5 +38,9 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::get('/posts',[PostController::class, 'index'])->name('posts.index');
+//Solucion para cargar el contenido de cada blog modo novato :v
+// Route::get('/{id}',[PostController::class, 'show'])->name('posts.blogPrincipal');
+//Solucion para cargar usando asset($post->image_url), recomendado :D, crea la ruta del mismo objeto, y no del url
+Route::get('/posts/allDetails/{id}',[PostController::class, 'show'])->name('posts.blogPrincipal');
 Route::post('/posts',[PostController::class, 'store'])->name('posts.store');
 Route::delete('/posts/delete/{id}',[PostController::class, 'destroy'])->name('posts.destroy');

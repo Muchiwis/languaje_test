@@ -26,7 +26,7 @@
             <div class="lg:flex flex-col">
                 <img class="object-cover w-full h-56 rounded-lg lg:w-64" src="{{$post->image_url}}" alt="">
                 <div class="flex flex-row justify-between py-6 lg:mx-6">
-                    <a href="" class="text-xl font-semibold text-gray-800 hover:underline dark:text-white">
+                    <a href="{{route('posts.blogPrincipal', ['id' => $post->id])}}" class="text-xl font-semibold text-gray-800 hover:underline dark:text-white">
                         {{$post->title}}
                     </a>
                 </div>
