@@ -64,9 +64,20 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request,$id)
     {
-        return "Aca de va actualziar";
+        $post = Post::find($id);
+        $post->title = $request->title;
+        $post->body = $request->body;
+        if($request->hasFile('image')){
+            $path = Storage::putFile('public/images', $request->file('image'));
+            $nuevo_path = str_replace('public', 'storage', $path); // Cambio aquí
+            $post->image_url = $nuevo_path;
+        }else{
+            //$post->image_url; //caso contrario no s hace nada, ya que en el recorrido estara la iamgen actual :v 
+        }
+        $post->save();
+        return redirect()->route('posts.index');
     }
 
     public function updateForm($id)
